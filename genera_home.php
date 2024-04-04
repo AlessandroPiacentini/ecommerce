@@ -14,14 +14,20 @@ Class HomeGenerator{
         $array_prodotti=array();
         if($this->idutente){ 
             $categories=$this->get_categories();
-            foreach($categories as $category){
-                $where=array(
-                    "idCategoria"=>$category["id"]
-                );
-                $result=$this->db->read_table("appartiene JOIN prodotto on appartiene.idProdotto = prodotto.ID", $where, "i");
+            if($categories){
+                foreach($categories as $category){
+                    $where=array(
+                        "idCategoria"=>$category["id"]
+                    );
+                    $result=$this->db->read_table("appartiene JOIN prodotto on appartiene.idProdotto = prodotto.ID", $where, "i");
+                    $array_prodotti=$this->count_prodatcts($result,$array_prodotti);
+                    
+                    
+                }
+            }
+            else{
+                $result=$this->db->read_table("prodotto");
                 $array_prodotti=$this->count_prodatcts($result,$array_prodotti);
-                
-                
             }
         }
         else{
@@ -57,6 +63,7 @@ Class HomeGenerator{
             return $count_category_sorted;
 
         }
+        return null;
     }
 
 
