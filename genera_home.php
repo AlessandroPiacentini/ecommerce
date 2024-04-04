@@ -13,7 +13,7 @@ Class HomeGenerator{
     public function get_prodacts(){
         $array_prodotti=array();
         if($this->idutente){ 
-            $categories=$this->get_categories($this->idutente);
+            $categories=$this->get_categories();
             foreach($categories as $category){
                 $where=array(
                     "idCategoria"=>$category["id"]
@@ -45,10 +45,10 @@ Class HomeGenerator{
         return $array;
     }   
 
-    public function get_categories(){
-        $from="(utente JOIN categorie_preferite on utente.ID = categorie_preferite.id_user) join categoria on categoria.ID = categorie_preferite.id_categoria";
-        $where=array("utente.ID"=>$this->idutente);
-        $result=$this->db->read_table($from);
+    private function get_categories(){
+        $from="categorie_preferite";
+        $where=array("id_user"=>$this->idutente);
+        $result=$this->db->read_table($from, $where, "i");
 
 
         if($result->num_rows>0){
@@ -65,7 +65,7 @@ Class HomeGenerator{
         $cat="";
         $count=0;
         while($row=$result->fetch_assoc()){
-            if($cat==$row['ID']){
+            if($cat==$row['id_categoria']){
                 $count++;
             }
             else{
@@ -74,7 +74,7 @@ Class HomeGenerator{
                     array_push($count_category,["id"=>$cat,"count"=>$count]);
                 }
                 
-                $cat=$row['ID'];
+                $cat=$row['id_categoria'];
                 $count=1;
             }
             
