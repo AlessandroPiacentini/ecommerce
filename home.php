@@ -35,8 +35,8 @@ $prodotti = $home->get_products();
         <h2>Prodotti Consigliati</h2>
         <div class="row">
             <?php foreach ($prodotti as $index => $prodotto): ?>
-                <div c  lass="col">
-                    <?php echo $prodotto['prodotto']->showProd(); ?>
+                <div class="col">
+                    <?php echo $prodotto['prodotto']->showProdHome(); ?>
                 </div>
                 <?php if(($index + 1) % 3 == 0): ?>
                     </div><div class="row">

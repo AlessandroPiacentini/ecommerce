@@ -16,7 +16,13 @@ class Prodotto {
         $this->data = $data;
         $this->prezzo = $prezzo;
         $this->quantita = $quantita;
-        $this->path = $path;
+        if($path){
+
+            $this->path = $path;
+        }
+        else{
+            $this->path="default-image.jpg";
+        }
     }
 
     public function  getId() { return $this->id; }
@@ -44,15 +50,39 @@ class Prodotto {
     public function getPath(){
         return $this->path;
     }
+    private function getProd(){
+        return new Prodotto($this->id, $this->nome, $this->descrizione, $this->data, $this->prezzo, $this->quantita, $this->path);
+    }
 
-    public function showProd(){
-        if($this->path){
-            $s="<a href='page_prodotto.php?id=$this->id'><div><img src='img/$this->path' width='150' height='150'>";
-        }
-        else{
-            $s="<a href='page_prodotto.php?id=$this->id'><div><img src='img/default-image.jpg' width='150' height='150'>";
-        }
+    public function showProdHome(){
+        $s="<a href='page_prodotto.php?id=$this->id'><div><img src='img/$this->path' width='150' height='150'>";
+        
+        
         $s.="<br><h4>$this->nome</h4>   $this->prezzo</div></a>";
+
+        return $s;
+    }
+
+    public function showProdPage(){
+        $s='<div class="container">';
+        $s.='<div class="product-img">';
+        $s.='<img src="img/'.$this->path.'" class="img-fluid" alt="Immagine Prodotto">';
+        $s.='</div>';
+        $s.='<div class="card">';
+        $s.='<div class="card-body">';
+        $s.='<h2 class="card-title">'.$this->nome.'</h2>';
+        $s.='<p class="card-text">'.$this->descrizione.'</p>';
+        $s.='<p class="card-text"><strong>Prezzo:</strong> $'.$this->prezzo.'</p>';
+        $s.='<p class="card-text"><strong>Quantità Disponibile:</strong>'.$this->quantita.'</p>';
+        $s.='</div>';
+        $s.='</div>';
+
+        $s.='<form action="aggiungi_carrello.php" method="post">';
+        $s.='<input type="hidden" name="prodotto_id" value="123">';
+        $s.='<button type="submit" class="btn btn-primary">Aggiungi al Carrello</button>';
+        $s.='</form>';
+        $s.='</div>';
+
 
         return $s;
     }
