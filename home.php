@@ -5,13 +5,14 @@ require_once "prodotto.php";
 
 session_start();
 
-// Inizializzazione degli oggetti HomeGenerator e NavBar in base alla sessione
-if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
+
+
+if(isset($_SESSION['id']) && $_SESSION['id']!="") {
+    $navbar = new NavBar($_SESSION['id']);
     $home = new HomeGenerator($_SESSION['id']);
-    $navbar = NavBar::getInstance($_SESSION['id']);
 } else {
+    $navbar = new NavBar();
     $home = new HomeGenerator();
-    $navbar = NavBar::getInstance();
 }
 
 // Ottenimento dei prodotti

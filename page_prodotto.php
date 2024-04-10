@@ -6,10 +6,10 @@ require_once "db_connection.php";
 session_start();
 $db=Database::getInstance() ;
 // Inizializzazione degli oggetti HomeGenerator e NavBar in base alla sessione
-if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
-    $navbar = NavBar::getInstance($_SESSION['id']);
+if(isset($_SESSION['id']) && $_SESSION['id']!="") {
+    $navbar = new NavBar($_SESSION['id']);
 } else {
-    $navbar = NavBar::getInstance();
+    $navbar = new NavBar();
 }
 $id_prodotto=$_GET['id'];
 $where=array(

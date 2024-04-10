@@ -1,6 +1,9 @@
 <?php
 session_start();
 include "db_connection.php";
+require_once "navbar.php";
+
+
 $db = Database::getInstance();
 if(isset($_POST['register'])){
     $username = $_POST['username'];
@@ -23,7 +26,7 @@ if(isset($_POST['register'])){
         );
         $db->insert("utente", $where);
 
-        header("Location: home.php");
+        header("Location: login.php");
     }else{
         header("Location: register.php?msg=error");
     }
@@ -39,6 +42,8 @@ if(isset($_POST['register'])){
         $row=$result->fetch_assoc();
         $_SESSION['id']=$row['ID'];
         $_SESSION['username'] = $username;
+
+
         header("Location: home.php");
     }else{
         header("Location: login.php?msg=error");

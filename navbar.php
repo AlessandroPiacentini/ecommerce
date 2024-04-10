@@ -1,18 +1,12 @@
 <?php
 class NavBar{
-    private static $instance;
     private $id_user;
-    private function __construct($id_user=null) {
-        $this->id_user=$id_user;
+
+    public function __construct($id_user=null) {
+        $this->id_user = $id_user;
     }
 
-    public static function getInstance($id_user=null) {
-        if (self::$instance === null) {
-            self::$instance = new NavBar($id_user);
-        }
-
-        return self::$instance;
-    }
+    
     public function  showNavbar(){
         $s='<nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="home.php">Il mio sito</a>
@@ -22,7 +16,7 @@ class NavBar{
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="categorie.php">Categories</a>
+                    <a class="nav-link" href="page_categorie.php">Categories</a>
                 </li>
                 <li class="nav-item">';
         if($this->id_user){
@@ -38,6 +32,8 @@ class NavBar{
 
         return $s;
     }
+
+    
 
 
 }

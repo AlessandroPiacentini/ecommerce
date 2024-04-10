@@ -92,8 +92,7 @@ class HomeGenerator {
                 $row['quantita'],
                 $row['img_path']
             );
-
-            $id_prodotto = $this->idutente ? $row['idProdotto'] : $row['ID'];
+            $id_prodotto = $this->idutente ? $row['ID'] : $row['ID'];
             $result_query = $this->db->execute_query("SELECT COUNT(*) AS contatore FROM visite_prodotto WHERE id_prodotto = $id_prodotto");
             $row_query = $result_query->fetch_assoc();
 
