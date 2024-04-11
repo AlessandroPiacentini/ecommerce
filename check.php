@@ -26,7 +26,7 @@ if(isset($_POST['register'])){
         );
         $db->insert("utente", $where);
 
-        header("Location: login.php");
+        header("Location: login.php?msg=success");
     }else{
         header("Location: register.php?msg=error");
     }
@@ -42,6 +42,7 @@ if(isset($_POST['register'])){
         $row=$result->fetch_assoc();
         $_SESSION['id']=$row['ID'];
         $_SESSION['username'] = $username;
+        $_SESSION['isAdmin'] = $row['isAdmin'];
 
 
         header("Location: home.php");

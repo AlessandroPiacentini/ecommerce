@@ -22,7 +22,7 @@ class Database {
 
         return self::$instance;
     }
-    function updateTable($table, $fields, $where=null) {
+    function updateTable($table, $fields, $where=null, $type_where=null) {
         // Creazione della query SQL
         $sql = "UPDATE " . $table . " SET ";
         $params = [];
@@ -45,8 +45,12 @@ class Database {
         // Preparazione dello statement
         $stmt = $this->conn->prepare($sql);
     
-        // Binding dei parametri
-        $stmt->bind_param(str_repeat('s', count($params)), ...$params);
+        if($type_where==null)
+                $s= str_repeat('s', count($params));
+            else
+                $s=$type_where;
+            // Bind the parameters
+            $stmt->bind_param($s, ...$params);
     
         // Esecuzione dello statement
         $stmt->execute();

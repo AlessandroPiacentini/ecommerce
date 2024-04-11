@@ -78,8 +78,8 @@ class Prodotto {
         $s.='</div>';
 
         $s.='<form action="aggiungi_carrello.php" method="post">';
-        $s.='<input type="hidden" name="prodotto_id" value="123">';
-        $s.='<button type="submit" class="btn btn-primary">Aggiungi al Carrello</button>';
+        $s.='<input type="hidden" name="prodotto_id" value="'.$this->id.'">';
+        $s.='<input type="submit" name"addProd" class="btn btn-primary" value="Aggiungi al Carrello">';
         $s.='</form>';
         $s.='</div>';
 

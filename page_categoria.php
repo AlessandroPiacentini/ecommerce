@@ -36,9 +36,10 @@ $index=0;
                 "appartiene.idCategoria"=>$id_categoria
             );
             $result=$db->read_table("prodotto join appartiene on prodotto.ID=appartiene.idProdotto", $where, "i");
+            
             while($row=$result->fetch_assoc()){
                 $prodotto= new Prodotto(
-                    $row['ID'],
+                    $row['idProdotto'],
                     $row['nome'],
                     $row['descrizione'],
                     $row['data_aggiunta'],

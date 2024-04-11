@@ -28,13 +28,12 @@ class NavBar{
         else{
             $s.="<a class='nav-link' href='login.php'>You are not logged in  </a>";
         } 
-        $s.="</ul></div></nav>";
+        $s.=' <li class="nav-item">
+        <a class="nav-link" href="page_carrrello.php">Carrello</a>
+    </li></ul></div></nav>';
 
         return $s;
     }
-
-    
-
 
 }
 

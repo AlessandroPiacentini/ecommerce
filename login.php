@@ -23,6 +23,16 @@
     </style>
 </head>
 <body>
+    <?php
+    if(isset($_GET['msg'])){
+        if($_GET['msg']=="error"){
+            echo "<div class='alert alert-danger' role='alert'>Username o password errati</div>";
+        }
+        if($_GET['msg']=="success"){
+            echo "<div class='alert alert-success' role='alert'>registrazione avvenuta con successo</div>";
+        }
+    }
+    ?>
     <div class="container">
         <div class="login-form">
             <h2 class="text-center mb-4">Login</h2>

@@ -29,7 +29,18 @@ $prodotti = $home->get_products();
 </head>
 <body>
     <!-- Navbar -->
-    <?php echo $navbar->showNavbar(); ?>
+    <?php echo $navbar->showNavbar(); 
+    if(isset($_GET['msg'])){
+        if($_GET['msg']=="error"){
+            echo "<div class='alert alert-danger' role='alert'>Username o password errati</div>";
+        }
+        if($_GET['msg']=="added"){
+            echo "<div class='alert alert-success' role='alert'>Prodotto aggiunto al carrello</div>";
+        }
+    }
+
+        
+    ?>
 
     <!-- Prodotti Consigliati -->
     <div class="container">

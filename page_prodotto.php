@@ -15,7 +15,6 @@ $id_prodotto=$_GET['id'];
 $where=array(
     "ID"=>$id_prodotto
 );
-
 $result=$db->read_table("prodotto", $where, "i");
 $row=$result->fetch_assoc();
 
