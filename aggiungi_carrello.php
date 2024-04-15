@@ -29,13 +29,13 @@ if(isset($_POST['prodotto_id'])){
     $result = $db->read_table("carrello", $where, "ii");
     if($result->num_rows > 0){
         $row = $result->fetch_assoc();
-        $quantita = $row['quantita'];
+        $quantita = $row['quantita_prodotto'];
         $quantita++;
-        $field = ["quantita" => $quantita];
+        $field = ["quantita_prodotto" => $quantita];
         $where= ["idProdotto" => $prodotto_id, "idUtente" => $idutente];
         $db->updateTable("carrello", $field, $where, "iii");
     }else{
-        $where = ["idProdotto" => $prodotto_id, "idUtente" => $idutente, "quantita" => 1];
+        $where = ["idProdotto" => $prodotto_id, "idUtente" => $idutente, "quantita_prodotto" => 1];
         $db->insert("carrello", $where, "iii");
     }
     header("Location: home.php?msg=added");

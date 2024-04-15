@@ -86,6 +86,21 @@ class Prodotto {
 
         return $s;
     }
+    public function showProdCarrello($quantita_carrello){
+        $s='<div class="container">';
+        $s.='<div class="product-img">';
+        $s.='<img src="img/'.$this->path.'" class="img-fluid" alt="Immagine Prodotto" width="150" height="150">';
+        $s.='</div>';
+        $s.='<div class="card">';
+        $s.='<div class="card-body">';
+        $s.='<h2 class="card-title">'.$this->nome.'</h2>';
+        $s.='<p class="card-text">'.$this->descrizione.'</p>';
+        $s.='<p class="card-text"><strong>Prezzo:</strong> $'.$this->prezzo.'</p>';
+        $s.='<p class="card-text"><strong>Quantità:</strong>'.$quantita_carrello.'</p></div></div></div>';
+
+        return $s;
+        
+    }
 }
 ?>
 
