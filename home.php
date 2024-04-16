@@ -26,6 +26,22 @@ $prodotti = $home->get_products();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <script>
+        $.ajax({
+            url: "api_show_prod.php",
+            type: "GET",
+            data: {pag: 0},
+            success: function(data){
+                $("#prodotti").html(data);
+                pag;
+            }
+        }); 
+    </script>
+
+
 </head>
 <body>
     <!-- Navbar -->
@@ -45,17 +61,45 @@ $prodotti = $home->get_products();
     <!-- Prodotti Consigliati -->
     <div class="container">
         <h2>Prodotti Consigliati</h2>
-        <div class="row">
-            <?php foreach ($prodotti as $index => $prodotto): ?>
-                <div class="col">
-                    <?php echo $prodotto['prodotto']->showProdHome(); ?>
-                </div>
-                <?php if(($index + 1) % 3 == 0): ?>
-                    </div><div class="row">
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </div>
+        
     </div>
+
+
+
+
+
+    <div id="mioCarosello" class="carousel slide" data-ride="carousel">
+        <!-- Indicatori -->
+        <ol class="carousel-indicators">
+            <li data-target="#mioCarosello" data-slide-to="0" class="active"></li>
+            <li data-target="#mioCarosello" data-slide-to="1"></li>
+            <li data-target="#mioCarosello" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                
+            </div>
+            <div class="carousel-item">
+                prova
+            </div>
+            <div class="carousel-item">
+                hi
+            </div>
+        </div>
+
+        <!-- Controlli -->
+        <a class="carousel-control-prev" href="#mioCarosello" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Precedente</span>
+        </a>
+        <a class="carousel-control-next" href="#mioCarosello" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Successivo</span>
+        </a>
+    </div>
+
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

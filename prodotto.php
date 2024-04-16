@@ -3,17 +3,15 @@ class Prodotto {
     private $id;
     private $nome;
     private $descrizione;
-    private $data;
     private $prezzo;
     private $quantita;
     private $path;
 
 
-    public function __construct($id, $nome, $descrizione, $data, $prezzo, $quantita, $path) {
+    public function __construct($id, $nome, $descrizione, $prezzo, $quantita, $path) {
         $this->id = $id;
         $this->nome = $nome;
         $this->descrizione = $descrizione;
-        $this->data = $data;
         $this->prezzo = $prezzo;
         $this->quantita = $quantita;
         if($path){
@@ -35,9 +33,7 @@ class Prodotto {
         return $this->descrizione;
     }
 
-    public function getData() {
-        return $this->data;
-    }
+ 
 
     public function getPrezzo() {
         return $this->prezzo;
@@ -51,7 +47,7 @@ class Prodotto {
         return $this->path;
     }
     private function getProd(){
-        return new Prodotto($this->id, $this->nome, $this->descrizione, $this->data, $this->prezzo, $this->quantita, $this->path);
+        return new Prodotto($this->id, $this->nome, $this->descrizione, $this->prezzo, $this->quantita, $this->path);
     }
 
     public function showProdHome(){
