@@ -42,7 +42,6 @@ $index=0;
                     $row['idProdotto'],
                     $row['nome'],
                     $row['descrizione'],
-                    $row['data_aggiunta'],
                     $row['prezzo'],
                     $row['quantita'],
                     $row['img_path']

@@ -25,18 +25,32 @@ if(isset($_POST['prodotto_id'])){
         }
         
     }
-    $where = ["idProdotto" => $prodotto_id, "idUtente" => $idutente];
-    $result = $db->read_table("carrello", $where, "ii");
+
+    $where = [ "id_utente" => $idutente];
+    $result = $db->read_table("carrello", $where, "i");
     if($result->num_rows > 0){
         $row = $result->fetch_assoc();
-        $quantita = $row['quantita_prodotto'];
-        $quantita++;
-        $field = ["quantita_prodotto" => $quantita];
-        $where= ["idProdotto" => $prodotto_id, "idUtente" => $idutente];
-        $db->updateTable("carrello", $field, $where, "iii");
+        $idCarrello = $row['ID'];
     }else{
-        $where = ["idProdotto" => $prodotto_id, "idUtente" => $idutente, "quantita_prodotto" => 1];
-        $db->insert("carrello", $where, "iii");
+        $where = ["id_utente" => $idutente];
+        $db->insert("carrello", $where, "i");
+        $result = $db->read_table("carrello", $where, "i");
+        $row = $result->fetch_assoc();
+        $idCarrello = $row['ID'];
+    }
+
+    $where = ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello];
+    $result = $db->read_table("aggiunta_carrello", $where, "ii");
+    if($result->num_rows > 0){
+        $row = $result->fetch_assoc();
+        $quantita = $row['quantita'];
+        $quantita++;
+        $field = ["quantita" => $quantita];
+        $where= ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello];
+        $db->updateTable("aggiunta_carrello", $field, $where, "iii");
+    }else{
+        $where = ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello, "quantita" => 1];
+        $db->insert("aggiunta_carrello", $where, "iii");
     }
     header("Location: home.php?msg=added");
 }

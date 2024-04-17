@@ -22,7 +22,6 @@ $prodotto= new Prodotto(
     $row['ID'],
     $row['nome'],
     $row['descrizione'],
-    $row['data_aggiunta'],
     $row['prezzo'],
     $row['quantita'],
     $row['img_path']
