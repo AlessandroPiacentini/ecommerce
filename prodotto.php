@@ -51,7 +51,7 @@ class Prodotto {
     }
 
     public function showProdHome(){
-        $s="<a href='page_prodotto.php?id=$this->id'><div><img src='img/$this->path' width='150' height='150'>";
+        $s="<a href='page_prodotto.php?id=$this->id'><div class='col'><img src='img/$this->path' width='150' height='150'>";
         
         
         $s.="<br><h4>$this->nome</h4>   $this->prezzo</div></a>";

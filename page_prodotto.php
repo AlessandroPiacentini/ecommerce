@@ -26,6 +26,20 @@ $prodotto= new Prodotto(
     $row['quantita'],
     $row['img_path']
 );
+
+
+if(isset($_SESSION['id']) && $_SESSION['id']!=""){
+    $id_utente=$_SESSION['id'];
+    $where=array(
+        "id_user"=>$id_utente, 
+        "id_prodotto"=>$id_prodotto
+    );
+    $result=$db->insert("visite_prodotto", $where, "ii");
+    
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

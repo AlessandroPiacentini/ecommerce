@@ -24,6 +24,15 @@
 </head>
 <body>
     <?php
+    require_once("navbar.php");
+    session_start();
+    if(isset($_SESSION['id']) && $_SESSION['id']!="") {
+        $navbar = new NavBar($_SESSION['id']);
+    } else {
+        $navbar = new NavBar();
+    }
+    
+    echo $navbar->showNavbar();
     if(isset($_GET['msg'])){
         if($_GET['msg']=="error"){
             echo "<div class='alert alert-danger' role='alert'>Username o password errati</div>";

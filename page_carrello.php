@@ -16,6 +16,7 @@ if(isset($_SESSION['id']) && $_SESSION['id']!="") {
         $result=$db->read_table("(aggiunta_carrello join prodotto on aggiunta_carrello.idProdotto=prodotto.ID) join carrello on aggiunta_carrello.idCarrello = carrello.ID", array("carrello.id_utente"=>$_COOKIE['carrello']), "i");
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +29,8 @@ if(isset($_SESSION['id']) && $_SESSION['id']!="") {
 </head>
 <body>
     <?php
+
+
         echo $navbar->showNavbar();
 
         $totale=0;

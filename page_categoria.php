@@ -13,6 +13,16 @@ if(isset($_SESSION['id']) && $_SESSION['id']!="") {
 $id_categoria=$_GET['id'];
 $index=0;
 
+if(isset($_SESSION['id']) && $_SESSION['id']!=""){
+    $id_utente=$_SESSION['id'];
+    $where=array(
+        "id_user"=>$id_utente, 
+        "id_categoria"=>$id_categoria
+    );
+    $result=$db->insert("categorie_preferite", $where, "ii");
+    
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,0 +1,43 @@
+/* styles.css */
+
+/* Navbar */
+.navbar {
+    background-color: #007bff; /* Colore di sfondo */
+    color: #fff; /* Colore del testo */
+}
+
+/* Titolo della pagina */
+h1 {
+    margin-top: 40px; /* Spazio sopra il titolo */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Contenitore dei prodotti */
+.container {
+    margin-top: 20px; /* Spazio sopra il contenitore */
+}
+
+/* Pulsante "Avanti" */
+button {
+    background-color: #28a745; /* Colore di sfondo */
+    color: #fff; /* Colore del testo */
+    border: none; /* Nessun bordo */
+    padding: 10px 20px; /* Spaziatura interna */
+    cursor: pointer; /* Cambia il cursore al passaggio */
+    border-radius: 5px; /* Bordo arrotondato */
+}
+
+/* Pulsante "Avanti" al passaggio del mouse */
+button:hover {
+    background-color: #218838; /* Cambia il colore al passaggio del mouse */
+}
+
+/* Numero di pagina */
+h3 {
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Stile per le alert */
+.alert {
+    margin-top: 20px; /* Spazio sopra l'alert */
+}
