@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require_once "db_connection.php";
+require_once "../classi/db_connection.php";
 $db = Database::getInstance();
 if(isset($_POST['prodotto_id'])){
     $prodotto_id = $_POST['prodotto_id'];
@@ -52,5 +52,5 @@ if(isset($_POST['prodotto_id'])){
         $where = ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello, "quantita" => 1];
         $db->insert("aggiunta_carrello", $where, "iii");
     }
-    header("Location: home.php?msg=added");
+    header("Location: ../home.php?msg=added");
 }

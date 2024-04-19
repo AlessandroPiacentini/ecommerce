@@ -33,7 +33,7 @@ class Prodotto {
         return $this->descrizione;
     }
 
- 
+
 
     public function getPrezzo() {
         return $this->prezzo;
@@ -73,7 +73,7 @@ class Prodotto {
         $s.='</div>';
         $s.='</div>';
 
-        $s.='<form action="aggiungi_carrello.php" method="post">';
+        $s.='<form action="script/aggiungi_carrello.php" method="post">';
         $s.='<input type="hidden" name="prodotto_id" value="'.$this->id.'">';
         $s.='<input type="submit" name"addProd" class="btn btn-primary" value="Aggiungi al Carrello">';
         $s.='</form>';

@@ -1,7 +1,7 @@
 <?php
-include("genera_home.php");
-require_once("navbar.php");
-require_once "prodotto.php";
+include("classi/genera_home.php");
+require_once("classi/navbar.php");
+require_once "classi/prodotto.php";
 
 session_start();
 
@@ -55,7 +55,7 @@ $prodotti = $home->get_products();
         function sposta(i) {
             pagina += i;
             $.ajax({
-                url: 'api_show_prod.php', // URL dell'API PHP
+                url: 'script/api_show_prod.php', // URL dell'API PHP
                 method: 'GET',
                 data: {
                     pag: pagina

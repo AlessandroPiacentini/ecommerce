@@ -1,8 +1,8 @@
 <?php
-require_once "db_connection.php";
+require_once "classi/db_connection.php";
 
-require_once "prodotto.php";
-require_once "navbar.php";
+require_once "classi/prodotto.php";
+require_once "classi/navbar.php";
 $db = Database::getInstance();
 session_start();
 $result=false;
@@ -13,7 +13,8 @@ if(isset($_SESSION['id']) && $_SESSION['id']!="") {
 } else {
     $navbar = new NavBar();
     if(isset($_COOKIE['id_utente'])){
-        $result=$db->read_table("(aggiunta_carrello join prodotto on aggiunta_carrello.idProdotto=prodotto.ID) join carrello on aggiunta_carrello.idCarrello = carrello.ID", array("carrello.id_utente"=>$_COOKIE['carrello']), "i");
+        
+        $result=$db->read_table("(aggiunta_carrello join prodotto on aggiunta_carrello.idProdotto=prodotto.ID) join carrello on aggiunta_carrello.idCarrello = carrello.ID", array("carrello.id_utente"=>$_COOKIE['id_utente']), "i");
     }
 }
 
@@ -52,7 +53,7 @@ if(isset($_SESSION['id']) && $_SESSION['id']!="") {
                     echo $prodotto->showProdCarrello($row['quantita']);
                 }
                 echo "<h3>Totale: $totale</h3>";
-                echo "<a href='checkout.php?idUtente=".$_SESSION['id']."' class='btn btn-primary'>Checkout</a>";
+                echo "<a href='script/checkout.php?idUtente=".$_SESSION['id']."' class='btn btn-primary'>Checkout</a>";
                 echo "</div>";
             }
             else{

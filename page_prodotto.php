@@ -1,7 +1,7 @@
 <?php
-require_once("navbar.php");
-require_once "prodotto.php";
-require_once "db_connection.php";
+require_once("classi/navbar.php");
+require_once "classi/prodotto.php";
+require_once "classi/db_connection.php";
 
 session_start();
 $db=Database::getInstance() ;

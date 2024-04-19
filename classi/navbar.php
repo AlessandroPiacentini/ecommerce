@@ -22,7 +22,7 @@ class NavBar{
         if($this->id_user){
             $s.="<a class='nav-link' href='profilo.php?id=".$this->id_user."'>Profile</a>";
             $s.= "<li  class='nav-item'>";
-            $s.= "<a class='nav-link' href='logout.php'>Log out</a> ";
+            $s.= "<a class='nav-link' href='script/logout.php'>Log out</a> ";
             $s.= "</li>";
         }
         else{

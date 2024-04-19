@@ -1,7 +1,7 @@
 <?php
-require_once "db_connection.php";
-require_once "categoria.php";
-require_once "navbar.php";
+require_once "classi/db_connection.php";
+require_once "classi/categoria.php";
+require_once "classi/navbar.php";
 
 $db = Database::getInstance();
 session_start();

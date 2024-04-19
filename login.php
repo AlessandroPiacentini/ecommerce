@@ -24,7 +24,7 @@
 </head>
 <body>
     <?php
-    require_once("navbar.php");
+    require_once("classi/navbar.php");
     session_start();
     if(isset($_SESSION['id']) && $_SESSION['id']!="") {
         $navbar = new NavBar($_SESSION['id']);
@@ -45,7 +45,7 @@
     <div class="container">
         <div class="login-form">
             <h2 class="text-center mb-4">Login</h2>
-            <form action="check.php" method="post">
+            <form action="script/check.php" method="post">
                 <div class="form-group">
                     <input type="text" class="form-control" name="username" placeholder="Username" required>
                 </div>

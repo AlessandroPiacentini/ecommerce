@@ -1,7 +1,7 @@
 <?php
 session_start();
-include "db_connection.php";
-require_once "navbar.php";
+include "../classi/db_connection.php";
+require_once "../classi/navbar.php";
 
 
 $db = Database::getInstance();
@@ -26,9 +26,9 @@ if(isset($_POST['register'])){
         );
         $db->insert("utente", $where);
 
-        header("Location: login.php?msg=success");
+        header("Location: ../login.php?msg=success");
     }else{
-        header("Location: register.php?msg=error");
+        header("Location: ../register.php?msg=error");
     }
 }elseif(isset($_POST['login'])){
     $username = $_POST['username'];
@@ -45,9 +45,9 @@ if(isset($_POST['register'])){
         $_SESSION['isAdmin'] = $row['isAdmin'];
 
 
-        header("Location: home.php");
+        header("Location: ../home.php");
     }else{
-        header("Location: login.php?msg=error");
+        header("Location: ../login.php?msg=error");
     }
 }
 ?>

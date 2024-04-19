@@ -1,8 +1,8 @@
 <?php
 session_start(); // Starting the session
 
-include("genera_home.php");
-require_once "prodotto.php";
+include("../classi/genera_home.php");
+require_once "../classi/prodotto.php";
 
 if(isset($_SESSION['id']) && $_SESSION['id']!="") {
     $home = new HomeGenerator($_SESSION['id']);
