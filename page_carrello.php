@@ -49,8 +49,8 @@ if(isset($_SESSION['id']) && $_SESSION['id']!="") {
                         $row['quantita'],
                         $row['img_path']
                     );
-                    $totale+=$prodotto->getPrezzo();
-                    echo $prodotto->showProdCarrello($row['quantita']);
+                    $totale+=($prodotto->getPrezzo()*$row['quantita_carrello']);
+                    echo $prodotto->showProdCarrello($row['quantita_carrello']);
                 }
                 echo "<h3>Totale: $totale</h3>";
                 echo "<a href='script/checkout.php?idUtente=".$_SESSION['id']."' class='btn btn-primary'>Checkout</a>";

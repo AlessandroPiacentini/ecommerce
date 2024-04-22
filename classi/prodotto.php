@@ -92,7 +92,9 @@ class Prodotto {
         $s.='<h2 class="card-title">'.$this->nome.'</h2>';
         $s.='<p class="card-text">'.$this->descrizione.'</p>';
         $s.='<p class="card-text"><strong>Prezzo:</strong> $'.$this->prezzo.'</p>';
-        $s.='<p class="card-text"><strong>Quantità:</strong>'.$quantita_carrello.'</p></div></div></div>';
+        $s.='<p class="card-text"><strong>Quantità:</strong>'.$quantita_carrello.'</p>
+        <a href="script/elimina_prodotto_carrello.php?id_prodotto='.$this->id.'" class="btn btn-secondary">X</a>
+        </div></div></div>';
 
         return $s;
         
