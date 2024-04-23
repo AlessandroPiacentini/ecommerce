@@ -8,13 +8,13 @@ session_start();
 $result=false;
 if(isset($_SESSION['id']) && $_SESSION['id']!="") {
     $navbar = new NavBar($_SESSION['id']);
-    $result=$db->read_table("(aggiunta_carrello join prodotto on aggiunta_carrello.idProdotto=prodotto.ID) join carrello on aggiunta_carrello.idCarrello = carrello.ID", array("carrello.id_utente"=>$_SESSION['id']), "i");
+    $result=$db->read_table("(aggiunta_carrello join prodotto on aggiunta_carrello.idProdotto=prodotto.ID) join carrello on aggiunta_carrello.idCarrello = carrello.ID", array("carrello.id_utente"=>$_SESSION['id'], "attivo"=>1), "ii");
 
 } else {
     $navbar = new NavBar();
     if(isset($_COOKIE['id_utente'])){
         
-        $result=$db->read_table("(aggiunta_carrello join prodotto on aggiunta_carrello.idProdotto=prodotto.ID) join carrello on aggiunta_carrello.idCarrello = carrello.ID", array("carrello.id_utente"=>$_COOKIE['id_utente']), "i");
+        $result=$db->read_table("(aggiunta_carrello join prodotto on aggiunta_carrello.idProdotto=prodotto.ID) join carrello on aggiunta_carrello.idCarrello = carrello.ID", array("carrello.id_utente"=>$_COOKIE['id_utente'], "attivo"=>1), "ii");
     }
 }
 
@@ -41,6 +41,7 @@ if(isset($_SESSION['id']) && $_SESSION['id']!="") {
             if($result->num_rows>0){
                     
                 while($row=$result->fetch_assoc()){
+                    $id_carrello = $row['idCarrello'];
                     $prodotto= new Prodotto(
                         $row['idProdotto'],
                         $row['nome'],
@@ -53,7 +54,7 @@ if(isset($_SESSION['id']) && $_SESSION['id']!="") {
                     echo $prodotto->showProdCarrello($row['quantita_carrello']);
                 }
                 echo "<h3>Totale: $totale</h3>";
-                echo "<a href='script/checkout.php?idUtente=".$_SESSION['id']."' class='btn btn-primary'>Checkout</a>";
+                echo "<a href='page_checkout.php?id_carrello=".$id_carrello."' class='btn btn-primary'>Checkout</a>";
                 echo "</div>";
             }
             else{

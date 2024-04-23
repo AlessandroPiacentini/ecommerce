@@ -26,15 +26,15 @@ if(isset($_POST['prodotto_id'])){
         
     }
 
-    $where = [ "id_utente" => $idutente];
-    $result = $db->read_table("carrello", $where, "i");
+    $where = [ "id_utente" => $idutente, "attivo" => 1];
+    $result = $db->read_table("carrello", $where, "ii");
     if($result->num_rows > 0){
         $row = $result->fetch_assoc();
         $idCarrello = $row['ID'];
     }else{
-        $where = ["id_utente" => $idutente];
-        $db->insert("carrello", $where, "i");
-        $result = $db->read_table("carrello", $where, "i");
+        $where = ["id_utente" => $idutente, "attivo" => 1];
+        $db->insert("carrello", $where, "ii");
+        $result = $db->read_table("carrello", $where, "ii");
         $row = $result->fetch_assoc();
         $idCarrello = $row['ID'];
     }
