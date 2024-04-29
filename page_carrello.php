@@ -5,6 +5,13 @@ require_once "classi/prodotto.php";
 require_once "classi/navbar.php";
 $db = Database::getInstance();
 session_start();
+
+if(isset($_SESSION['trasanzione']) && $_SESSION['trasanzione']==1){
+    echo $_SESSION['trasanzione'];
+}
+
+
+
 $result=false;
 if(isset($_SESSION['id']) && $_SESSION['id']!="") {
     $navbar = new NavBar($_SESSION['id']);
@@ -54,7 +61,7 @@ if(isset($_SESSION['id']) && $_SESSION['id']!="") {
                     echo $prodotto->showProdCarrello($row['quantita_carrello']);
                 }
                 echo "<h3>Totale: $totale</h3>";
-                echo "<a href='page_checkout.php?id_carrello=".$id_carrello."' class='btn btn-primary'>Checkout</a>";
+                echo "<a href='checkout.php?id_carrello=".$id_carrello."' class='btn btn-primary'>Checkout</a>";
                 echo "</div>";
             }
             else{

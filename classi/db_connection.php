@@ -145,6 +145,28 @@ class Database {
         $stmt->close();
     }
 
+    public function BoT(){
+        $this->conn->begin_transaction();
+        $f=fopen("../log.txt", "a");
+            fwrite($f, "inizia la transazione\n");
+
+    }
+
+    public function commit(){
+        
+        $this->conn->commit();
+        $f=fopen("../log.txt", "a");
+            fwrite($f, "termina la transazione\n");
+        
+    }
+
+    public function rollback(){
+        $this->conn->rollback();
+
+    }
+
+
+
     
 }
 ?>

@@ -39,33 +39,45 @@ if(isset($_POST['prodotto_id'])){
         $idCarrello = $row['ID'];
     }
 
-    $where = ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello];
-    $result = $db->read_table("aggiunta_carrello", $where, "ii");
-    if($result->num_rows > 0){
-        $row = $result->fetch_assoc();
-        $quantita = $row['quantita_carrello'];
-        $quantita++;
-        $field = ["quantita_carrello" => $quantita];
-        $where= ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello];
-        $db->updateTable("aggiunta_carrello", $field, $where, "iii");
-
-        
-
-    }else{
-        $where = ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello, "quantita_carrello" => 1];
-        $db->insert("aggiunta_carrello", $where, "iii");
-    }
-
-
-    $where = ["ID" => $idCarrello];
+    $where = ["ID" => $prodotto_id];
     $result = $db->read_table("prodotto", $where, "i");
     $row = $result->fetch_assoc();
     $quantita = $row['quantita'];
-    $quantita--;
-    $field = ["quantita" => $quantita];
-    $where = ["ID" => $idCarrello];
-    $db->updateTable("prodotto", $field, $where, "ii");
+    if($quantita >0){
+        if($quantita > 1){
+            
+        }else{
+            $_SESSION['trasazione']=1;
+            $db->Bot();
+        }
+        $quantita--;
+        $field = ["quantita" => $quantita];
+        $where = ["ID" => $prodotto_id];
+        $db->updateTable("prodotto", $field, $where, "ii");
+            
+        
+        
+            
+        $where = ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello];
+        $result = $db->read_table("aggiunta_carrello", $where, "ii");
+        if($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            $quantita = $row['quantita_carrello'];
+            $quantita++;
+            $field = ["quantita_carrello" => $quantita];
+            $where= ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello];
+            $db->updateTable("aggiunta_carrello", $field, $where, "iii");
+            
+            
+
+        }else{
+            $where = ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello, "quantita_carrello" => 1];
+            $db->insert("aggiunta_carrello", $where, "iii");
+        }
+    
+    }
 
 
+    
     header("Location: ../home.php?msg=added");
 }
