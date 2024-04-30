@@ -2,7 +2,6 @@
 session_start(); // Avvia la sessione per poter utilizzare le variabili di sessione
 
 require_once "../classi/db_connection.php"; // Includi il file che contiene la classe per la connessione al database
-require_once "../classi/curl_call_class.php";
 $db = Database::getInstance(); // Ottieni un'istanza della classe per la connessione al database
 
 if(isset($_POST['prodotto_id'])){ // Verifica se è stato inviato un ID del prodotto tramite il metodo POST
@@ -56,9 +55,14 @@ if(isset($_POST['prodotto_id'])){ // Verifica se è stato inviato un ID del prod
     
     if($quantita > 0){ // Verifica se la quantità disponibile è maggiore di zero
         if(!($quantita > 1)){ // Verifica se la quantità disponibile è esattamente 1
-            $_SESSION['prod_temp'] = []; // Inizializza un array di prodotti temporanei nella sessione
-            array_push($_SESSION['prod_temp'], $prodotto_id); // Aggiungi l'ID del prodotto temporaneo all'array
-            CurlCallClass::curl_call('/timer/start', 'GET');
+            $prodotto_temporaneo=true;
+
+            require_once "../classi/timer.php";
+
+            $timer = Timer::getInstance();
+            $timer->start();
+        }else{
+            $prodotto_temporaneo=false;
         }
         
         $quantita--; // Riduci la quantità disponibile del prodotto di 1
@@ -73,13 +77,14 @@ if(isset($_POST['prodotto_id'])){ // Verifica se è stato inviato un ID del prod
             $row = $result->fetch_assoc();
             $quantita = $row['quantita_carrello'];
             $quantita++; // Aumenta la quantità del prodotto nel carrello di 1
-            $field = ["quantita_carrello" => $quantita];
+            $field = ["quantita_carrello" => $quantita, "temporaneo"=>$prodotto_temporaneo];
             $where= ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello];
-            $db->updateTable("aggiunta_carrello", $field, $where, "iii"); // Aggiorna la quantità del prodotto nel carrello nel database
+            $db->updateTable("aggiunta_carrello", $field, $where, "iiii"); // Aggiorna la quantità del prodotto nel carrello nel database
         }else{
+            
             // Se il prodotto non è ancora presente nel carrello dell'utente, inserisci una nuova riga nel carrello con la quantità 1
-            $where = ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello, "quantita_carrello" => 1];
-            $db->insert("aggiunta_carrello", $where, "iii");
+            $where = ["idProdotto" => $prodotto_id, "idCarrello" => $idCarrello, "quantita_carrello" => 1,  "temporaneo"=>$prodotto_temporaneo];
+            $db->insert("aggiunta_carrello", $where, "iiii");
         }
     }
 

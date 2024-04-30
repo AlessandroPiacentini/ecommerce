@@ -38,6 +38,10 @@ if(isset($_GET['id_prodotto'])){
                 $where= ["idProdotto" => $id_prodotto, "idCarrello" => $idCarrello];
                 $db->updateTable("aggiunta_carrello", $field, $where, "iii");
             }
+            $field = ["quantita" => 1];
+            $where = ["ID" => $id_prodotto];
+            $db->updateTable("prodotto", $field, $where, "ii");
+
             header("Location: ../page_carrello.php?msg=success");
         }
         header("Location: ../page_carrello.php?msg=error");

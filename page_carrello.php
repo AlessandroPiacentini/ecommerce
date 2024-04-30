@@ -4,6 +4,8 @@ require_once "classi/db_connection.php";
 require_once "classi/prodotto.php";
 require_once "classi/navbar.php";
 
+
+
 // Ottieni un'istanza della classe per la connessione al database
 $db = Database::getInstance();
 
@@ -47,19 +49,32 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
 
     <script>
         $(document).ready(function(){
-            checkTimer();
+                checkTimer();
+            
         });
+
         function checkTimer(){
-            // Controlla lo stato del timer
+            setTimeout(function() {
             $.ajax({
-                url: '/timer/check_timer',
-                method: 'GET',
-                success: function(response) {
-                    console.log(response.message);  // Stampa "Timer still running" o "Timer stop"
+                url: "script/check_timer.php",
+                type: "GET",
+                success: function(data){
+                    console.log(data);
+
+                    if(data >= "300"){
+                        window.location.href = "script/elimina_carrello_temp.php";
+                    }
                 }
             });
+        
+                
+            checkTimer();
+                
+            }, 1000); // Intervallo di tempo in millisecondi
         }
+
     </script>
+    
 
 </head>
 <body>
@@ -67,6 +82,9 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
         // Mostra la navbar
         echo $navbar->showNavbar();
 
+
+
+        
         $totale = 0; // Inizializza il totale
         echo "<h1>Carrello</h1>";
         echo "<div class='container'>";
