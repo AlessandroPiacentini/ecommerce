@@ -61,7 +61,7 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
                 success: function(data){
                     console.log(data);
 
-                    if(data >= "300"){
+                    if(data >= 300){
                         window.location.href = "script/elimina_carrello_temp.php";
                     }
                 }
