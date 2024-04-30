@@ -19,8 +19,8 @@ else{
     
 }
 
-$where = [ "id_utente" => $idutente];
-$result = $db->read_table("carrello", $where, "i");
+$where = [ "id_utente" => $idutente, "attivo" => 1];
+$result = $db->read_table("carrello", $where, "ii");
 if($result->num_rows > 0){
     $row = $result->fetch_assoc();
     $idCarrello = $row['ID'];

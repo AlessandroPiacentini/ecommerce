@@ -62,12 +62,12 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
                     type: "GET",
                     success: function(data){
                         console.log(data);
-                        if(data >= 70){
+                        if(data >= 30){
                             window.location.href = "script/elimina_carrello_temp.php";
                         }else{
-                            if(data>0){
+                            if(data>=0){
                                 $("#divTimer").removeAttr("hidden");
-                                $("#divTimer").html("hai 5 min per comprare: "+data+"/300");
+                                $("#divTimer").html("hai 300 secondi per comprare: "+data+"/300");
                                 
                             }else{
                                 $("#divTimer").attr("hidden", true);
