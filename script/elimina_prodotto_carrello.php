@@ -30,15 +30,33 @@ if(isset($_GET['id_prodotto'])){
             $row = $result->fetch_assoc();
             $quantita = $row['quantita_carrello'];
             $quantita--;
+
+            $prod_temp=$row['temporaneo'];
+            
+            $f=fopen("log.txt","a");
+            fwrite($f, $quantita);
+            fclose($f);
+
             if($quantita == 0){
                 $where = ["idProdotto" => $id_prodotto, "idCarrello" => $idCarrello];
                 $db->delete("aggiunta_carrello", $where, "ii");
+                if($prod_temp==1){
+                    require_once "../classi/timer.php";
+                    $timer = Timer::getInstance();
+                    $timer->stop();
+                }
             }else{
                 $field = ["quantita_carrello" => $quantita];
                 $where= ["idProdotto" => $id_prodotto, "idCarrello" => $idCarrello];
                 $db->updateTable("aggiunta_carrello", $field, $where, "iii");
+
             }
-            $field = ["quantita" => 1];
+            $where = ["ID" => $id_prodotto];
+            $result = $db->read_table("prodotto", $where, "i");
+            $row = $result->fetch_assoc();
+            $quantita = $row['quantita'];
+            $quantita++;
+            $field = ["quantita" => $quantita];
             $where = ["ID" => $id_prodotto];
             $db->updateTable("prodotto", $field, $where, "ii");
 

@@ -34,6 +34,7 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
         $result = $db->read_table("(aggiunta_carrello join prodotto on aggiunta_carrello.idProdotto=prodotto.ID) join carrello on aggiunta_carrello.idCarrello = carrello.ID", array("carrello.id_utente"=>$_COOKIE['id_utente'], "attivo"=>1), "ii");
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -49,26 +50,35 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
 
     <script>
         $(document).ready(function(){
-                checkTimer();
+            checkTimer();
             
         });
 
         function checkTimer(){
             setTimeout(function() {
-            $.ajax({
-                url: "script/check_timer.php",
-                type: "GET",
-                success: function(data){
-                    console.log(data);
-
-                    if(data >= 300){
-                        window.location.href = "script/elimina_carrello_temp.php";
-                    }
-                }
-            });
-        
                 
-            checkTimer();
+                $.ajax({
+                    url: "script/check_timer.php",
+                    type: "GET",
+                    success: function(data){
+                        console.log(data);
+                        if(data >= 70){
+                            window.location.href = "script/elimina_carrello_temp.php";
+                        }else{
+                            if(data>0){
+                                $("#divTimer").removeAttr("hidden");
+                                $("#divTimer").html("hai 5 min per comprare: "+data+"/300");
+                                
+                            }else{
+                                $("#divTimer").attr("hidden", true);
+                            }
+    
+                        }
+                        
+                    }
+                });
+                
+                checkTimer();
                 
             }, 1000); // Intervallo di tempo in millisecondi
         }
@@ -78,11 +88,14 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
 
 </head>
 <body>
+    <div class='alert alert-danger' role='alert' id="divTimer" hidden></div>
     <?php
         // Mostra la navbar
         echo $navbar->showNavbar();
 
-
+        // if(isset($_GET['msg_timer'])){
+        //     echo "<div class='alert alert-danger' role='alert'>".$_GET['msg_timer']."</div>";
+        // }
 
         
         $totale = 0; // Inizializza il totale

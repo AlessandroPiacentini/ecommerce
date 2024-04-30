@@ -1,8 +1,5 @@
 <?php
 class Timer{
-    
-    
-
     private static $instance = null;
 
     public static function getInstance(){
@@ -17,7 +14,7 @@ class Timer{
     
     public function stop(){
         $f=fopen("timer.txt", "w");
-        fwrite($f, 0);
+        fwrite($f, -1);
         fclose($f);
     }
 
@@ -27,13 +24,23 @@ class Timer{
         fwrite($f, time());
 
         fclose($f);
+
+        
     }
 
     public function getSecond(){
         $f=fopen("timer.txt", "r");
         $time = fread($f, filesize("timer.txt"));
         fclose($f);
-        return time()-$time;
+
+        if($time==-1){
+            return -1;
+        }
+
+        $secondi=(time()-$time);
+
+
+        return $secondi;
     }
 }
 ?>

@@ -24,7 +24,7 @@ if(isset($_POST['prodotto_id'])){ // Verifica se è stato inviato un ID del prod
                 $row = $result->fetch_assoc();
                 $idutente = $row['id'] + 1; // Incrementa l'ID massimo per ottenere un nuovo ID univoco
             }
-            setcookie("id_utente", $idutente); // Imposta l'ID dell'utente nei cookie
+            setcookie("id_utente", $idutente, time() + (86400 * 30), "/"); // Imposta l'ID dell'utente nei cookie
             $where = ["ID" => $idutente, "isAdmin" => 0];
             $db->insert("utente", $where, "ii"); // Inserisci il nuovo utente nel database con il nuovo ID generato
         }
