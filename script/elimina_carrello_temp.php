@@ -28,31 +28,43 @@ if($result->num_rows > 0){
     $result=$db->read_table("aggiunta_carrello", $where, "ii");
 
     while($row=$result->fetch_assoc()){
-        $id_prodotto= $row['id_prodotto'];
+        $fatto=false;
+
+        $id_prodotto= $row['idProdotto'];
         $quantita_carrello=$row['quantita_carrello'];
         $quantita_carrello--;
-        if($quantita == 0){
+
+        $f=fopen("log.txt","a");    
+        fwrite($f, "id_prodotto: ".$id_prodotto." quantita_carrello: ".$quantita_carrello."\n");
+        if($quantita_carrello == 0){
+            fwrite($f, "quantita_carrello == 0 entra\n");
             $where = ["idProdotto" => $id_prodotto, "idCarrello" => $idCarrello];
             $db->delete("aggiunta_carrello", $where, "ii");
+            $fatto=true;
+            
         }else{
-            $field = ["quantita_carrello" => $quantita];
+            $field = ["quantita_carrello" => $quantita_carrello];
             $where= ["idProdotto" => $id_prodotto, "idCarrello" => $idCarrello];
             $db->updateTable("aggiunta_carrello", $field, $where, "iii");
+            $fatto=true;
         }
-        $where = ["ID" => $id_prodotto];
-        $result = $db->read_table("prodotto", $where, "i");
-        $row = $result->fetch_assoc();
-        $quantita = $row['quantita'];
-        $quantita++;
-        $field = ["quantita" => $quantita];
-        $where = ["ID" => $id_prodotto];
-        $db->updateTable("prodotto", $field, $where, "ii");
+        if($fatto){
+            $where = ["ID" => $id_prodotto];
+            $result = $db->read_table("prodotto", $where, "i");
+            $row = $result->fetch_assoc();
+            $quantita = $row['quantita'];
+            $quantita++;
+            $field = ["quantita" => $quantita];
+            $where = ["ID" => $id_prodotto];
+            $db->updateTable("prodotto", $field, $where, "ii");
+            $timer->stop();
+            
+            fclose($f);
+            header("Location: ../page_carrello.php?msg_timer=eliminati i prodotti perchè passato troppo tempo");
+        }
     }
 
 
 }
-$timer->stop();
-
-header("Location: ../page_carrello.php?msg_timer=eliminati i prodotti perchè passato troppo tempo");
 
 ?>

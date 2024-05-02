@@ -61,13 +61,14 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
                     url: "script/check_timer.php",
                     type: "GET",
                     success: function(data){
+                        max_sec=30;
                         console.log(data);
-                        if(data >= 30){
+                        if(data >= max_sec){
                             window.location.href = "script/elimina_carrello_temp.php";
                         }else{
                             if(data>=0){
                                 $("#divTimer").removeAttr("hidden");
-                                $("#divTimer").html("hai 300 secondi per comprare: "+data+"/300");
+                                $("#divTimer").html("hai "+max_sec+" secondi per comprare: "+data+"/"+max_sec);
                                 
                             }else{
                                 $("#divTimer").attr("hidden", true);
@@ -93,9 +94,9 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
         // Mostra la navbar
         echo $navbar->showNavbar();
 
-        // if(isset($_GET['msg_timer'])){
-        //     echo "<div class='alert alert-danger' role='alert'>".$_GET['msg_timer']."</div>";
-        // }
+        if(isset($_GET['msg_timer'])){
+            echo "<div class='alert alert-danger' role='alert'>".$_GET['msg_timer']."</div>";
+        }
 
         
         $totale = 0; // Inizializza il totale
