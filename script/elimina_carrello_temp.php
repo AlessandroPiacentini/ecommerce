@@ -35,7 +35,6 @@ if($result->num_rows > 0){
         $quantita_carrello--;
 
         if($quantita_carrello == 0){
-            fwrite($f, "quantita_carrello == 0 entra\n");
             $where = ["idProdotto" => $id_prodotto, "idCarrello" => $idCarrello];
             $db->delete("aggiunta_carrello", $where, "ii");
             $fatto=true;
