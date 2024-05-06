@@ -32,6 +32,9 @@ $prodotti = $home->get_products();
         if($_GET['msg']=="added"){
             echo "<div class='alert alert-success' role='alert'>Prodotto aggiunto al carrello</div>";
         }
+        if($_GET['msg']=="order_success"){
+            echo "<div class='alert alert-success' role='alert'>ordine eseguito</div>";
+        }
     }
     ?>
 

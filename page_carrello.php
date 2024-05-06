@@ -122,7 +122,7 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
                 }
                 // Mostra il totale del carrello e un pulsante per il checkout
                 echo "<h3>Totale: $totale</h3>";
-                echo "<a href='checkout.php?id_carrello=".$id_carrello."' class='btn btn-primary'>Checkout</a>";
+                echo "<a href='page_checkout.php?id_carrello=".$id_carrello."' class='btn btn-primary'>Checkout</a>";
                 echo "</div>";
             } else {
                 echo "<h3>Il carrello è vuoto</h3>";
