@@ -5,14 +5,13 @@ require_once "classi/navbar.php";
 
 $db = Database::getInstance();
 session_start();
-if(isset($_SESSION['id']) && $_SESSION['id']!="") {
+if (isset($_SESSION['id']) && $_SESSION['id'] != "") {
     $navbar = new NavBar($_SESSION['id']);
 } else {
     $navbar = new NavBar();
 }
 $result = $db->read_table("categoria");
 
-$index = 0;
 ?>
 
 <!DOCTYPE html>
@@ -22,31 +21,33 @@ $index = 0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categorie</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* Aggiungi stili personalizzati qui */
+        .category-column {
+            border: 1px solid #dee2e6; /* Colore dei bordi */
+            border-radius: 5px; /* Arrotonda i bordi */
+            padding: 15px; /* Spazio interno */
+            margin-bottom: 20px; /* Margine inferiore */
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
-    <?php
-    echo $navbar->showNavbar();
-    ?>
+    <?php echo $navbar->showNavbar(); ?>
+
     <div class="container">
-        <h2>Categorie</h2>
+        <h2 class="mt-4 mb-3">Categorie</h2>
         <div class="row">
-            <?php while($row = $result->fetch_assoc()){
+            <?php while ($row = $result->fetch_assoc()) {
                 // Creazione dell'oggetto Categoria
                 $categoria = new Categoria($row['ID'], $row['nome'], $row['descrizione']);
                 // Visualizzazione della categoria
-                echo "<div class='col'>";
+                echo "<div class='col-md-3'>";
+                echo "<div class='category-column'>";
                 echo $categoria->showCategoria();
                 echo "</div>";
-                if(($index) == 3){
-                    echo "</div><div class='row'>";
-                    $index = 0;
-                }
-                $index++;
-
-            }
-            ?>
-
+                echo "</div>";
+            } ?>
         </div>
     </div>
 
