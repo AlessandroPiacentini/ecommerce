@@ -28,7 +28,7 @@ $prodotti = $home->get_products();
     <!-- Navbar -->
     <?php echo $navbar->showNavbar(); 
     
-    if(isset($_GET['msg'])){
+    if(isset($_GET['msg'])  ){
         if($_GET['msg']=="error"){
             echo "<div class='alert alert-danger' role='alert'>Username o password errati</div>";
         }
@@ -38,8 +38,17 @@ $prodotti = $home->get_products();
         if($_GET['msg']=="order_success"){
             echo "<div class='alert alert-success' role='alert'>ordine eseguito</div>";
         }
+        
     }
-    if(($_SESSION['id']) && $_SESSION['id'] != ""){
+    if(isset($_GET['load-prod'])){
+        if($_GET['load-prod']=="success"){
+            echo "<div class='alert alert-success' role='alert'>Prodotto aggiunto con successo</div>";
+        }
+        if($_GET['load-prod']=="error"){
+            echo "<div class='alert alert-error' role='alert'>Errore nell'aggiunta del prodotto</div>";
+        }
+    }
+    if(isset($_SESSION['id']) && $_SESSION['id'] != ""){
         $where=array(
             "ID"=>$_SESSION['id']
         );
@@ -60,7 +69,12 @@ $prodotti = $home->get_products();
     </div>
     
     <button onclick="sposta(-1)">indietro</button>
-    <button onclick="sposta(1)">Avanti</button>
+    <button onclick="sposta(1)">Avanti</button><br><br>
+    <?php
+        if(isset($_SESSION["isAdmin"]) &&  $_SESSION["isAdmin"]==1){
+            echo "<a href='page_carica_prodotti.php' class='btn btn-secondary'>Carica Prodotti</a>";
+        }
+    ?>
     
 
     <!-- JavaScript -->
