@@ -9,7 +9,7 @@ class NavBar{
     
     public function showNavbar() {
         $s = '<nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="home.php">Il mio sito</a>
+                <a class="navbar-brand" href="home.php">Home</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -20,7 +20,7 @@ class NavBar{
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">';
-    
+        
         if ($this->id_user) {
             $s .= '<li class="nav-item">
                         <a class="nav-link" href="profilo.php?id=' . $this->id_user . '">Profile</a>
@@ -33,9 +33,12 @@ class NavBar{
                         <a class="nav-link" href="login.php">You are not logged in</a>
                     </li>';
         }
-    
+        
         $s .= '<li class="nav-item">
                     <a class="nav-link" href="page_carrello.php">Carrello</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="page_ordini.php">Ordini</a>
                 </li>
             </ul>
         </div>
@@ -43,6 +46,7 @@ class NavBar{
     
         return $s;
     }
+    
     
     
 

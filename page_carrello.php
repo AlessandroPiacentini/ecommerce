@@ -61,7 +61,7 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
                     url: "script/check_timer.php",
                     type: "GET",
                     success: function(data){
-                        max_sec=30;
+                        max_sec=300;
                         console.log(data);
                         if(data >= max_sec){
                             window.location.href = "script/elimina_carrello_temp.php";

@@ -1,4 +1,8 @@
 <?php
+require_once "../classi/db_connection.php";
+session_start();
+$db = Database::getInstance();
+
 $num_card=$_POST['ccnum'];
     $exp_month=$_POST['expmonth'];
     $exp_year=$_POST['expyear'];
@@ -14,4 +18,4 @@ if(isset($_SESSION['id']) && $_SESSION['id']!="") {
     $field = ["n_carta" => $num_card, "mese_scadenza" => $exp_month, "anno_scadenza" => $exp_year, "cvv" => $cvv, "idUtente" => $idutente];
 $db->insert("metodo_pagamento", $field);
 
-header("lacation: page_checkout.php?MP=added");
+header("Location: ../page_checkout.php?MP=added&id_carrello=".$_SESSION['id_carrello']);
