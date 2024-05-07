@@ -7,7 +7,7 @@ require_once "../classi/navbar.php";
 $db = Database::getInstance();
 if(isset($_POST['register'])){
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = md5($_POST['password']);
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $where=array(
@@ -32,7 +32,7 @@ if(isset($_POST['register'])){
     }
 }elseif(isset($_POST['login'])){
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = md5($_POST['password']);
     $where=array(
         "username"=>$username,
         "password"=>$password,

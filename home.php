@@ -2,9 +2,11 @@
 include("classi/genera_home.php");
 require_once("classi/navbar.php");
 require_once "classi/prodotto.php";
+require_once "classi/db_connection.php";
 
 session_start();
 
+$db= Database::getInstance();
 $navbar = isset($_SESSION['id']) && $_SESSION['id'] != "" ? new NavBar($_SESSION['id']) : new NavBar();
 $home = isset($_SESSION['id']) && $_SESSION['id'] != "" ? new HomeGenerator($_SESSION['id']) : new HomeGenerator();
 
@@ -25,6 +27,7 @@ $prodotti = $home->get_products();
 <body>
     <!-- Navbar -->
     <?php echo $navbar->showNavbar(); 
+    
     if(isset($_GET['msg'])){
         if($_GET['msg']=="error"){
             echo "<div class='alert alert-danger' role='alert'>Username o password errati</div>";
@@ -36,9 +39,19 @@ $prodotti = $home->get_products();
             echo "<div class='alert alert-success' role='alert'>ordine eseguito</div>";
         }
     }
+    if(($_SESSION['id']) && $_SESSION['id'] != ""){
+        $where=array(
+            "ID"=>$_SESSION['id']
+        );
+
+        $result=$db->read_table("utente", $where);
+        $row=$result->fetch_assoc();
+        echo "<h1>Benvenuto ".$row['username']."</h1>";
+        
+    }
     ?>
 
-    <h1>Prodotti consigliati</h1>
+    <h2>Prodotti consigliati</h2>
         
     <div class='container'>
         <div class='row' id="prodotti_cons">
