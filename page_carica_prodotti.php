@@ -1,3 +1,15 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['isAdmin']) && $_SESSION['isAdmin']==1){
+        header("Location: index.php");
+    }
+    require_once "classi/navbar.php";
+    if(isset($_SESSION['id']) && $_SESSION['id']!="") {
+        $navbar = new NavBar($_SESSION['id']);
+    } else {
+        $navbar = new NavBar();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,12 +20,15 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
+    <?php
+    echo $navbar->showNavbar();
+    ?>
     <div class="container">
         <h1 class="text-center my-4">Aggiungi Prodotto</h1>
         <form action="script/aggiungi_prodotto.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="nome">Nome:</label>
-                <input type="text" class="form-control" id="nome" name="nome">
+                <input type="text" class="form-control" id="nome" name="nome" required>
             </div>
             <div class="form-group">
                 <label for="descrizione">Descrizione:</label>
@@ -21,11 +36,11 @@
             </div>
             <div class="form-group">
                 <label for="prezzo">Prezzo:</label>
-                <input type="text" class="form-control" id="prezzo" name="prezzo">
+                <input type="text" class="form-control" id="prezzo" name="prezzo" required>
             </div>
             <div class="form-group">
                 <label for="quantita">Quantità:</label>
-                <input type="number" class="form-control" id="quantita" name="quantita">
+                <input type="number" class="form-control" id="quantita" name="quantita" required>
             </div>
             <div class="form-group">
                 <label for="categoria">categorie:</label>
@@ -36,7 +51,7 @@
 
             <div class="form-group">
                 <label for="img_path">Percorso Immagine:</label>
-                <input type="file" class="form-control" id="img_path" name="img_path">
+                <input type="file" class="form-control" id="img_path" name="img_path" required>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi Prodotto</button>
         </form>
