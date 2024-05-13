@@ -16,7 +16,7 @@ else{
     
 }
 
-$timer =new Timer($id_utente);
+$timer =new Timer($idutente);
 
 
 echo $timer->getSecond();

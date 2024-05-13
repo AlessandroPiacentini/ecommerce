@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 07, 2024 alle 09:42
+-- Creato il: Mag 13, 2024 alle 10:22
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -40,10 +40,10 @@ CREATE TABLE `aggiunta_carrello` (
 --
 
 INSERT INTO `aggiunta_carrello` (`ID`, `idProdotto`, `idCarrello`, `quantita_carrello`, `temporaneo`) VALUES
-(79, 2, 6, 1, 0),
 (80, 2, 10, 1, 0),
 (81, 2, 11, 1, 0),
-(82, 6, 12, 1, 1);
+(82, 6, 12, 1, 1),
+(83, 2, 8, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -132,11 +132,13 @@ CREATE TABLE `carrello` (
 INSERT INTO `carrello` (`ID`, `id_utente`, `attivo`) VALUES
 (6, 3, 0),
 (7, 7, 1),
-(8, 8, 1),
+(8, 8, 0),
 (9, 9, 1),
 (10, 3, 0),
 (11, 3, 0),
-(12, 3, 0);
+(12, 3, 0),
+(13, 8, 1),
+(14, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -193,6 +195,8 @@ CREATE TABLE `categorie_preferite` (
 --
 
 INSERT INTO `categorie_preferite` (`id`, `id_user`, `id_categoria`) VALUES
+(138, 1, 1),
+(139, 1, 1),
 (36, 3, 1),
 (38, 3, 1),
 (39, 3, 1),
@@ -287,10 +291,14 @@ INSERT INTO `categorie_preferite` (`id`, `id_user`, `id_categoria`) VALUES
 (135, 3, 1),
 (136, 3, 1),
 (137, 3, 1),
+(140, 3, 1),
+(141, 3, 1),
+(142, 3, 1),
 (22, 3, 2),
 (34, 3, 2),
 (52, 3, 2),
 (54, 3, 2),
+(143, 3, 2),
 (23, 3, 3),
 (21, 3, 5),
 (40, 3, 5),
@@ -369,7 +377,8 @@ INSERT INTO `metodo_pagamento` (`ID`, `n_carta`, `cvv`, `mese_scadenza`, `idUten
 (1, '4587 1963 4173 1', '321', '03', 3, '2026'),
 (2, '4779 7862 8520 0', '321', '03', 3, '2026'),
 (7, '5588767777888580', '965', '05', 3, '2030'),
-(8, '5168883035720982', '852', '07', 3, '2036');
+(8, '5168883035720982', '852', '07', 3, '2036'),
+(9, '424242424242', '625', '06', 8, '2025');
 
 -- --------------------------------------------------------
 
@@ -393,7 +402,8 @@ CREATE TABLE `ordine` (
 INSERT INTO `ordine` (`ID`, `data_acquisto`, `stato`, `indirizzo`, `idCarrello`, `idM_pagamento`) VALUES
 (1, '2024-05-06', 'preparazione', 'Via Icmesa, 3', 10, 1),
 (2, '2024-05-07', 'preparazione', 'Via Icmesa, 3', 11, 1),
-(3, '2024-05-07', 'preparazione', 'via alessandro volta, 116', 12, 2);
+(3, '2024-05-07', 'preparazione', 'via alessandro volta, 116', 12, 2),
+(4, '2024-05-13', 'preparazione', 'via alessandro volta, 116', 8, 9);
 
 -- --------------------------------------------------------
 
@@ -416,11 +426,11 @@ CREATE TABLE `prodotto` (
 
 INSERT INTO `prodotto` (`ID`, `nome`, `descrizione`, `prezzo`, `quantita`, `img_path`) VALUES
 (1, 'Prodotto 1', 'Descrizione del prodotto 1', 10.99, 1, '0'),
-(2, 'Prodotto 2', 'Descrizione del prodotto 2', 19.99, 2489, '0'),
+(2, 'Prodotto 2', 'Descrizione del prodotto 2', 19.99, 200, '0'),
 (3, 'Prodotto 3', 'Descrizione del prodotto 3', 5.49, 1, '0'),
 (4, 'Prodotto 4', 'Descrizione del prodotto 4', 7.99, 1, '0'),
 (5, 'Prodotto 5', 'Descrizione del prodotto 5', 12.79, 1, '0'),
-(6, 'Prodotto 6', 'Descrizione del prodotto 6', 8.99, 0, '0'),
+(6, 'Prodotto 6', 'Descrizione del prodotto 6', 8.99, 1, '0'),
 (7, 'Prodotto 7', 'Descrizione del prodotto 7', 14.49, 1, '0'),
 (8, 'Prodotto 8', 'Descrizione del prodotto 8', 6.99, 1, '0'),
 (9, 'Prodotto 9', 'Descrizione del prodotto 9', 11.29, 1, '0'),
@@ -464,7 +474,27 @@ INSERT INTO `prodotto` (`ID`, `nome`, `descrizione`, `prezzo`, `quantita`, `img_
 (47, 'Prodotto 47', 'Descrizione del prodotto 47', 8.49, 1, '0'),
 (48, 'Prodotto 48', 'Descrizione del prodotto 48', 13.99, 1, '0'),
 (49, 'Prodotto 49', 'Descrizione del prodotto 49', 6.79, 1, '0'),
-(50, 'Prodotto 50', 'Descrizione del prodotto 50', 11.99, 1, '0');
+(50, 'Prodotto 50', 'Descrizione del prodotto 50', 11.99, 1, '0'),
+(51, 'Prodotto Aggiunto prova', 'prodotto di prova aggiunto con form', 10.50, 100, '../img/sfondo nero.png');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `timer`
+--
+
+CREATE TABLE `timer` (
+  `id` int(11) NOT NULL,
+  `time` int(11) NOT NULL DEFAULT -1,
+  `idUtente` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `timer`
+--
+
+INSERT INTO `timer` (`id`, `time`, `idUtente`) VALUES
+(0, -1, 3);
 
 -- --------------------------------------------------------
 
@@ -510,6 +540,22 @@ CREATE TABLE `visite_prodotto` (
 --
 
 INSERT INTO `visite_prodotto` (`id`, `id_user`, `id_prodotto`) VALUES
+(437, 1, 2),
+(439, 1, 2),
+(440, 1, 2),
+(441, 1, 2),
+(442, 1, 2),
+(443, 1, 2),
+(444, 1, 2),
+(445, 1, 2),
+(446, 1, 2),
+(447, 1, 2),
+(448, 1, 2),
+(449, 1, 2),
+(450, 1, 2),
+(462, 1, 6),
+(463, 1, 6),
+(438, 1, 51),
 (274, 3, 1),
 (290, 3, 2),
 (291, 3, 2),
@@ -634,6 +680,10 @@ INSERT INTO `visite_prodotto` (`id`, `id_user`, `id_prodotto`) VALUES
 (430, 3, 2),
 (431, 3, 2),
 (432, 3, 2),
+(451, 3, 2),
+(452, 3, 2),
+(455, 3, 2),
+(457, 3, 2),
 (275, 3, 3),
 (278, 3, 3),
 (286, 3, 3),
@@ -642,9 +692,14 @@ INSERT INTO `visite_prodotto` (`id`, `id_user`, `id_prodotto`) VALUES
 (297, 3, 3),
 (312, 3, 3),
 (320, 3, 3),
+(454, 3, 3),
+(456, 3, 3),
+(461, 3, 3),
 (314, 3, 4),
 (315, 3, 4),
 (318, 3, 4),
+(459, 3, 4),
+(460, 3, 4),
 (316, 3, 6),
 (317, 3, 6),
 (319, 3, 6),
@@ -657,6 +712,8 @@ INSERT INTO `visite_prodotto` (`id`, `id_user`, `id_prodotto`) VALUES
 (434, 3, 6),
 (435, 3, 6),
 (436, 3, 6),
+(453, 3, 6),
+(458, 3, 6),
 (280, 3, 8),
 (279, 3, 9),
 (288, 3, 9),
@@ -753,6 +810,13 @@ ALTER TABLE `prodotto`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indici per le tabelle `timer`
+--
+ALTER TABLE `timer`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idUtente` (`idUtente`);
+
+--
 -- Indici per le tabelle `utente`
 --
 ALTER TABLE `utente`
@@ -774,7 +838,7 @@ ALTER TABLE `visite_prodotto`
 -- AUTO_INCREMENT per la tabella `aggiunta_carrello`
 --
 ALTER TABLE `aggiunta_carrello`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT per la tabella `appartiene`
@@ -786,7 +850,7 @@ ALTER TABLE `appartiene`
 -- AUTO_INCREMENT per la tabella `carrello`
 --
 ALTER TABLE `carrello`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT per la tabella `categoria`
@@ -798,7 +862,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT per la tabella `categorie_preferite`
 --
 ALTER TABLE `categorie_preferite`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
 --
 -- AUTO_INCREMENT per la tabella `feedback`
@@ -816,19 +880,19 @@ ALTER TABLE `foto`
 -- AUTO_INCREMENT per la tabella `metodo_pagamento`
 --
 ALTER TABLE `metodo_pagamento`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT per la tabella `ordine`
 --
 ALTER TABLE `ordine`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `prodotto`
 --
 ALTER TABLE `prodotto`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT per la tabella `utente`
@@ -840,7 +904,7 @@ ALTER TABLE `utente`
 -- AUTO_INCREMENT per la tabella `visite_prodotto`
 --
 ALTER TABLE `visite_prodotto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=437;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=464;
 
 --
 -- Limiti per le tabelle scaricate
@@ -899,6 +963,12 @@ ALTER TABLE `metodo_pagamento`
 ALTER TABLE `ordine`
   ADD CONSTRAINT `ordine_ibfk_1` FOREIGN KEY (`idCarrello`) REFERENCES `carrello` (`ID`),
   ADD CONSTRAINT `ordine_ibfk_2` FOREIGN KEY (`idM_pagamento`) REFERENCES `metodo_pagamento` (`ID`);
+
+--
+-- Limiti per la tabella `timer`
+--
+ALTER TABLE `timer`
+  ADD CONSTRAINT `vinc_id_utente` FOREIGN KEY (`idUtente`) REFERENCES `utente` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `visite_prodotto`

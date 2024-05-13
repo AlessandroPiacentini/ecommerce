@@ -16,8 +16,8 @@ if (isset($_GET['id_prodotto'])) {
         }
     }
 
-    $where = ["id_utente" => $idutente];
-    $result = $db->read_table("carrello", $where, "i");
+    $where = ["id_utente" => $idutente, "attivo"=>1];
+    $result = $db->read_table("carrello", $where, "ii");
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -38,7 +38,7 @@ if (isset($_GET['id_prodotto'])) {
                 $db->delete("aggiunta_carrello", $where, "ii");
                 if ($prod_temp == 1) {
                     require_once "../classi/timer.php";
-                    $timer = Timer::getInstance();
+                    $timer =new Timer($idutente);
                     $timer->stop();
                 }
             } else {
@@ -61,7 +61,7 @@ if (isset($_GET['id_prodotto'])) {
             header("Location: ../page_carrello.php?msg=error");
         }
     } else {
-        header("Location: ../page_carrello.php?msg=error");
+        header("Location: ../page_carrello.php?msg=error-get");
         exit();
     }
 }

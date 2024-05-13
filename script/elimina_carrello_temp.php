@@ -3,7 +3,6 @@ require_once "../classi/db_connection.php";
 require_once "../classi/timer.php";
 session_start();
 $db = Database::getInstance();
-$timer = Timer::getInstance();
 
 if(isset($_SESSION['id']) and $_SESSION['id'] != "" ){
     $idutente = $_SESSION['id'];
@@ -18,6 +17,7 @@ else{
     }
     
 }
+$timer =new Timer($idutente);
 
 $where = [ "id_utente" => $idutente, "attivo" => 1];
 $result = $db->read_table("carrello", $where, "ii");

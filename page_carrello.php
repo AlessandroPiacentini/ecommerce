@@ -62,7 +62,7 @@ if(isset($_SESSION['id']) && $_SESSION['id'] != "") {
                     type: "GET",
                     success: function(data){
                         max_sec=300;
-                        console.log(data);
+                        console.log("datta:"+data);
                         if(data >= max_sec){
                             window.location.href = "script/elimina_carrello_temp.php";
                         }else{

@@ -9,14 +9,18 @@ class Timer{
 
     public function __construct($id_utente){
         $this->id_utente=$id_utente;
-        $db=Database::getInstance();
+        $this->db=Database::getInstance();
 
     }
     
     public function stop(){
-        $f=fopen("timer.txt", "w");
-        fwrite($f, -1);
-        fclose($f);
+        $where=array(
+            "idUtente" => $this->id_utente
+        );
+        $filed=array(
+            "time" => -1
+        );
+        $this->db->updatetable("timer", $filed, $where, "ii");
     }
 
     public function start(){
@@ -30,7 +34,7 @@ class Timer{
                 "time" => $time
             );
             
-            $this->db->update("timer", $filed, $where, "ii");
+            $this->db->updatetable("timer", $filed, $where, "ii");
 
         }else{
             $time=time();
