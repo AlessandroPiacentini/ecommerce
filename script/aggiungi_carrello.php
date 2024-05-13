@@ -59,7 +59,7 @@ if(isset($_POST['prodotto_id'])){ // Verifica se è stato inviato un ID del prod
 
             require_once "../classi/timer.php";
 
-            $timer = Timer::getInstance();
+            $timer =new Timer($idutente);
             $timer->start();
         }else{
             $prodotto_temporaneo=false;

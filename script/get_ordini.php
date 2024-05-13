@@ -8,6 +8,7 @@ session_start();
 
 if(isset($_SESSION['id']) and $_SESSION['id'] != "" ){
     $idutente = $_SESSION['id'];
+    
 }
 else{
     
@@ -20,8 +21,15 @@ else{
     
 }
 
-$where = [ "carrello.id_utente" => $idutente];
-$result = $db->read_table("ordine join carrello on ordine.idCarrello=carrello.ID", $where, "i");
+if(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin']==1){
+    $result = $db->read_table("ordine join carrello on ordine.idCarrello=carrello.ID");
+}
+else{
+    
+    $where = [ "carrello.id_utente" => $idutente];
+    $result = $db->read_table("ordine join carrello on ordine.idCarrello=carrello.ID", $where, "i");
+}
+
 
 $array_ordini=array();
 while($row=$result->fetch_assoc()){

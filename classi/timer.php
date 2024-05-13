@@ -1,15 +1,16 @@
 <?php
+require_once "db_connection.php";
+
+
 class Timer{
-    private static $instance = null;
+    private $id_utente;
 
-    public static function getInstance(){
-        if(self::$instance == null){
-            self::$instance = new Timer();
-        }
-        return self::$instance;
-    }
+    private $db;
 
-    private function __construct(){
+    public function __construct($id_utente){
+        $this->id_utente=$id_utente;
+        $db=Database::getInstance();
+
     }
     
     public function stop(){
@@ -19,28 +20,52 @@ class Timer{
     }
 
     public function start(){
-        
-        $f=fopen("timer.txt", "w");
-        fwrite($f, time());
+        $where=array(
+            "idUtente" => $this->id_utente
+        );
+        $result=$this->db->read_table("timer", $where, "i");
+        if($result->num_rows>0){
+            $time=time();
+            $filed=array(
+                "time" => $time
+            );
+            
+            $this->db->update("timer", $filed, $where, "ii");
 
-        fclose($f);
+        }else{
+            $time=time();
+            $filed=array(
+                "idUtente" => $this->id_utente,
+                "time" => $time
+            );
+            $this->db->insert("timer", $filed, "ii");   
+        }
 
         
     }
 
     public function getSecond(){
-        $f=fopen("timer.txt", "r");
-        $time = fread($f, filesize("timer.txt"));
-        fclose($f);
+        $where=array(
+            "idUtente" => $this->id_utente
+        );
+        $result=$this->db->read_table("timer", $where, "i");
+        if($result->num_rows>0){
+            $row=$result->fetch_assoc();
+            $time=$row['time'];
 
-        if($time==-1){
-            return -1;
+            if($time==-1){
+                return -1;
+            }
+    
+            $secondi=(time()-$time);
+    
+    
+            return $secondi;
+            
+            
+
         }
 
-        $secondi=(time()-$time);
-
-
-        return $secondi;
     }
 }
 ?>

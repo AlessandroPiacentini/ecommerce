@@ -28,10 +28,11 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>ID Carrello</th>
                         <th>Indirizzo</th>
-                        <th>Metodo di Pagamento</th>
+                        <th>Data</th>
                         <th>Stato</th>
+                        <th>Id Utente</th>
                     </tr>
                 </thead>
                 <tbody id="ordini">
@@ -54,7 +55,7 @@
                 success: function(data){
                     console.log(data);
                     for(let i=0; i<data.length; i++){
-                        $("#ordini").append("<tr><td>"+data[i]["ID"]+"</td><td>"+data[i]["indirizzo"]+"</td><td>"+data[i]["data_acquisto"]+"</td><td>"+data[i]["stato"]+"</td><td>"+data[i]["idCarrello"]+"</td></tr>");
+                        $("#ordini").append("<tr><td>"+data[i]["ID"]+"</td><td>"+data[i]["indirizzo"]+"</td><td>"+data[i]["data_acquisto"]+"</td><td>"+data[i]["stato"]+"</td><td>"+data[i]["id_utente"]+"</td></tr>");
                     }
                 }
             });
